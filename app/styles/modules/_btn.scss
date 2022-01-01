@@ -1,0 +1,43 @@
+
+.btn {
+    margin-right: 3rem;
+    text-transform: uppercase;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    border-radius: 5rem;
+    transition: all .5s;
+    position: relative;
+    color: $mainOrange;
+    font-weight: 700;
+    font-size: 1.5rem;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-.3rem);
+        box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(-.1rem);
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
+    }
+
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        border-radius: 5rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all .5s;
+    }
+
+    &:hover::after {
+        transform: scale(1.2);
+        opacity: 0;
+        background-color: $color-grey-light-1;
+    }
+}

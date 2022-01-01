@@ -1,0 +1,18 @@
+.phoneDetails {
+
+    font-size: 1.6rem;
+}
+
+.btn {
+    text-decoration: none;
+    font-weight: 400;
+    color: $mainBlue;
+    background-color: brown;
+    cursor: pointer;
+    display: inline-block;
+    text-transform: capitalize;
+
+    &:hover {
+        transform: translateY(-.2rem);
+    }
+}

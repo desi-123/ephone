@@ -4,19 +4,29 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const WebpackManifestPlugin = require("webpack-manifest-plugin");
+const fse = require('fs-extra')
+
+class RunAfterCompile {
+  apply(compiler) {
+    compiler.hooks.done.tap("Copy images", function () {
+      fse.copySync("./app/images", "./dist/images");
+    });
+  }
+}
 
 const config = {
   entry: "./app/index.js",
   output: {
-    filename: "main.[hash].js",
+    filename: "myBundled.[hash].js",
     path: path.resolve(__dirname, "dist"),
   },
   plugins: [new HtmlWebpackPlugin({ template: "./app/index.html" })],
   mode: "development",
   devtool: "eval-cheap-source-map",
   devServer: {
-    port: 8080,
+    port: 3000,
     contentBase: path.resolve(__dirname, "dist"),
+    historyApiFallback: true,
     hot: true,
   },
   module: {
@@ -51,7 +61,8 @@ if (currentTask == "build") {
   config.plugins.push(
     new MiniCssExtractPlugin({ filename: "styles.[hash].css" }),
     new CleanWebpackPlugin(),
-    new WebpackManifestPlugin()
+    new WebpackManifestPlugin(),
+    new RunAfterCompile()
   );
 }
 
